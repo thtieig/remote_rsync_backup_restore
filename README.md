@@ -1,7 +1,8 @@
 # Remote Rsync Backup and Restore Scripts
 
 This repository provides two simple yet powerful Bash scripts for handling remote Linux server backups and restorations using `rsync` over SSH.  
-There are two folders:
+There are two folders:  
+
 - `backup`: where you can find all the backup scripts/configs
 - `restore`: where you can find, of course, the scripts/configs related to the restore  
 
@@ -34,7 +35,7 @@ Also, I have hard coded `-v` to increase verbosity and the `--exclude-from` to p
 
 ---
 
-## 🔄 `remote_backup.sh`
+## 🔄 remote_backup.sh
 
 This script is designed to back up a remote Linux server to a local directory using `rsync`.  
 
@@ -73,7 +74,7 @@ You can schedule the script to run using `cron`. You can use `remote_backup_cron
 
 ---
 
-## ♻️ `restore_backup.sh`
+## ♻️ restore_backup.sh
 
 This script restores a backup from a local directory to a target destination server over SSH, **while carefully excluding system-specific paths** that should not be overwritten.
 
