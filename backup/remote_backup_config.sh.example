@@ -16,11 +16,5 @@ POST_EXEC_SCRIPT=''
 # echo "message to send" | mail -s "subject" me@mail.net
 #SEND_ERROR_MAIL_TO=root
 
-
-# Rsync Flags
-
-# Default - do not change unless you know what are you doing
-RSYNC_FLAGS='aHEAXSzx --delete -v'
-
-#(use the blelow at your own risk)
-#RSYNC_FLAGS='aHEAXSzx --delete --delete-excluded -v'
+# Rsync Flags - DO NOT change unless you know what are you doing
+RSYNC_FLAGS='aHEAXSzx --delete --delete-excluded -v'
