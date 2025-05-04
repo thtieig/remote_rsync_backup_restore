@@ -53,24 +53,24 @@ This script is designed to back up a remote Linux server to a local directory us
 ### Usage
 
 1. Create a copy of `remote_backup_config.sh.example` and rename to `remote_backup_config.sh` in the same path of the script `remote_backup.sh`.  
-Edit `remote_backup_config.sh` setting/reviewing (at least) the following variables:
+    Edit `remote_backup_config.sh` setting/reviewing (at least) the following variables:
 
-```bash
-REMOTE_SERVERS_LIST='remote1.example.com remote2.example.com'
-BKP_MAIN_PATH='/mnt/backup/hosts'
-BKP_REL_PATH='rsync_host_bkp'
-```
-There are other variables that can be set (e.g. `VAR_LOG_TREE_ONLY` or `RSYNC_FLAGS`), but it's all documented within the script.  
+    ```bash
+    REMOTE_SERVERS_LIST='remote1.example.com remote2.example.com'
+    BKP_MAIN_PATH='/mnt/backup/hosts'
+    BKP_REL_PATH='rsync_host_bkp'
+    ```
+    There are other variables that can be set (e.g. `VAR_LOG_TREE_ONLY` or `RSYNC_FLAGS`), but it's all documented within the script.  
 
 2. OPTIONAL: update/delete the file `backup-exclude.list`. This file, if present, overrides the `EXCLUDE_LIST` variable within the main script.
 
-Once all set, you can run the script, without any flag or options:
+    Once all set, you can run the script, without any flag or options:
 
-```bash
-./remote_backup.sh
-```
+    ```bash
+    ./remote_backup.sh
+    ```
 
-You can schedule the script to run using `cron`. You can use `remote_backup_cron` as sample config into `/etc/cron.d/` folder.  
+    You can schedule the script to run using `cron`. You can use `remote_backup_cron` as sample config into `/etc/cron.d/` folder.  
 
 ---
 
