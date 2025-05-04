@@ -16,6 +16,7 @@ This script is designed to back up a remote Linux server to a local directory us
 - Compresses during transfer (`-z`)
 - Customisable exclude list
 - Allows Pre and Post scripts to run before or after the rsync (if needed)
+- Can use a custom external `backup-exclude.list` file as rsync exclusion paths, if present
 
 ### Usage
 

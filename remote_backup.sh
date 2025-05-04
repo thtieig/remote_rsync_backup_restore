@@ -10,7 +10,7 @@
 # - License      : GPLv3
 # - author       : Chris Tian
 # - date         : 2025-05-05
-# - version      : 3.0
+# - version      : 3.1
 # - usage        : bash remote_backup.sh
 # - OS Supported : Ubuntu, Debian, SUSE, Gentoo, RHEL, CentOS, Scientific, Arch
 # - Credits      : Ispired by https://github.com/cloudnull/InstanceSync
@@ -37,16 +37,18 @@ REMOTE_SERVERS_LIST='remote1.example.com remote2.example.com'
 BKP_MAIN_PATH='/space/backups/hosts'
 BKP_REL_PATH='rsync_host_bkp'
 
+# Custom rsync exclude file. If exists, it will be used. If not, it will use 
+# the info found in EXCLUDE_LIST variable
+EXCLUDE_LIST_FILE="backup-exclude.list"
 
-# General Exclude List; The exclude list is space separated
-EXCLUDE_LIST='/dev/* /proc/* /sys/* /run/* /tmp/* /lock
-/media/* /lost+found /space/* /mnt/* 
-/var/run/* /var/tmp/* /var/cache/apt/archives/*
+# General Exclude List; The exclude list is space separated (multiple lines allowed)
+# List ignored if EXCLUDE_LIST_FILE is present (even if empty!)
+EXCLUDE_LIST='/dev /proc /sys /tmp /run /mnt /media /lost+found
 /root/.cache/* /home/*/.cache/*
-/core* /swap* /var/swap* /swapfile 
-/usr/lib/Acronis /var/lib/Acronis /etc/Acronis /root/agent* /root/Acronis /root/snap'
+/core* /swap* /var/swap* /swapfile'
 
-# Enable/disable only folders tree sync of /var/log
+# If you want to backup only the folders tree sync of /var/log without the actual logs
+# keep VAR_LOG_TREE_ONLY=true - otherwise, set to 'false' to backup all (unless excluded)
 # Default: true (bool)
 VAR_LOG_TREE_ONLY=true
 
@@ -75,14 +77,22 @@ MAX_RETRIES=5
 # NO NEED TO TOUCH BELOW HERE #
 
 generate_exclude_list() {
-  # Append log folder to the EXCLUDE_LIST if flag is set to true
-  if $VAR_LOG_TREE_ONLY; then
-    EXCLUDE_LIST="${EXCLUDE_LIST} ${VAR_LOG_PATH}"
-  fi
-
+  # Set temporary file
   EXCLUDE_FILE='/tmp/remote_backup_excludeme.file'
 
-  echo "${EXCLUDE_LIST}" | tr " " "\n" | sed '/^\s*$/d' > "${EXCLUDE_FILE}"
+  # Check if EXCLUDE_LIST_FILE exists
+  if [ -f "${EXCLUDE_LIST_FILE}" ]; then
+    # Use EXCLUDE_LIST_FILE as the exclude file
+    cp "${EXCLUDE_LIST_FILE}" "${EXCLUDE_FILE}"
+  else
+    # Generate exclude file from EXCLUDE_LIST variable
+    echo "${EXCLUDE_LIST}" | tr " " "\n" | sed '/^\s*$/d' | sort > "${EXCLUDE_FILE}"
+  fi
+
+  # Append log folder to the EXCLUDE_LIST if flag is set to true
+  if [ "$VAR_LOG_TREE_ONLY" = "true" ]; then
+    echo "${VAR_LOG_PATH}" >> "${EXCLUDE_FILE}"
+  fi
 }
 
 run_rsync_command() {
