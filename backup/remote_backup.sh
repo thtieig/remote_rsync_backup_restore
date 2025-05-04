@@ -42,7 +42,7 @@ EXCLUDE_LIST='/dev/*** /proc/*** /sys/*** /tmp/*** /run/*** /mnt/*** /media/*** 
 /swap* /var/swap*'
 
 # Name of the exclusion file
-EXCLUDE_LIST_FILE="backup-exclude.list"
+EXCLUDE_LIST_FILE="$SCRIPT_DIR/backup-exclude.list"
 
 # Number of times that the script retries the backup before giving up
 MAX_RETRIES=3
