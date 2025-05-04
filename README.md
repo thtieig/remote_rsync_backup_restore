@@ -50,7 +50,7 @@ This script is designed to back up a remote Linux server to a local directory us
 - Preserves file attributes (`-aHAXSzx`)
 - Excludes runtime and volatile system directories (e.g. `/proc`, `/sys`, `/run`, etc.)
 - Compresses during transfer (`-z`)
-- Customisable exclude list `backup-exclude.list` (if present)
+- Customisable exclude list `backup-exclude.list` (if present - *.example* template available)
 - Allows Pre and Post scripts to run before or after the rsync (if needed)
 - External `remote_backup_config.sh` config file - no changes on the main `remote_backup.sh` script are needed
 - Can email in case of failure after multiple attempts of performin a backup
@@ -98,7 +98,7 @@ This script restores a backup from a local directory to a target destination ser
 - Built-in sanity check for typical backup structure (`etc`, `usr`, `bin`, `var`)
 - Prompts before proceeding with destructive sync
 - Automatically reboots the target destination server on successful restore
-- Can use a custom external `restore-exclude.list` file as rsync exclusion paths, if present
+- Customisable exclude list `restore-exclude.list` (if present - *.example* template available)
 
 ### Usage
 

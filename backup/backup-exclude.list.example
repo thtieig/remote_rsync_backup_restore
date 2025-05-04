@@ -1,3 +1,5 @@
+# backup-exclude.list template file (create a copy called backup-exclude.list)
+
 # Generic exclusions
 /core*
 /dev/***
