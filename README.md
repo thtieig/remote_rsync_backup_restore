@@ -28,8 +28,14 @@ These scripts are also using some *rsync flags* to perform the backup/restore. H
    -S    handle sparse files efficiently
    -z    compress file data during the transfer
    -x    stay on one filesystem only
-   --delete    ensures that files that no longer exist on the source are deleted from the destination
 ```
+
+Some extra clarification regarding the `deletion` flags:
+```
+   --delete    ensures that files that no longer exist on the source are deleted from the destination
+   --delete-excluded expands the scope of deletion to include items that are excluded from the source 
+```
+
 
 Also, I have hard coded `-v` to increase verbosity and the `--exclude-from` to pass the exclude files.  
 
@@ -62,8 +68,11 @@ This script is designed to back up a remote Linux server to a local directory us
     BKP_REL_PATH='rsync_host_bkp'
     ```
     There are other variables that can be set but it's all documented within the file.  
-    🛑 The `RSYNC_FLAG` variable should be changed only if you know what you're doing. 
-    REMEMBER: The `--delete-excluded` flag will remove excluded files from destination if not present at the source, but there are some caveats. 
+
+    🛑 The `RSYNC_FLAG` variable is now configurable and no longer hardcoded into the main script. This change allows for customisation of the sync process, should you wish to adopt a more cautious approach.  
+    In addition to the `--delete` flag, I also utilise the `--delete-excluded` flag to remove excluded files from the backup. The reason for this is to maintain a consistent and up-to-date copy of the source directory. By using `--delete-excluded`, any files or paths that have been *newly added to the exclusion list* are also removed from the backup, ensuring that the backup remains accurately reflective of the source.  
+    If you want to be more cautious, you can tweak this by removing `--delete-excluded`, `--delete`, or both, depending on your specific requirements and desired level of protection for your backup data. 
+
 
 2. OPTIONAL: update/delete the file `backup-exclude.list`. This file, if present, overrides the `EXCLUDE_LIST` variable within the main script.
 
