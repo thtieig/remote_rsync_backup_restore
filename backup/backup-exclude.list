@@ -2,7 +2,7 @@
 /core*
 /dev/***
 /lock
-/lost+found
+/lost+found/***
 /media/***
 /mnt/***
 /proc/***
@@ -10,7 +10,6 @@
 /run/***
 /space/***
 /swap*
-/swapfile
 /sys/***
 /tmp/***
 

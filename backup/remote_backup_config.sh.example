@@ -1,0 +1,17 @@
+# User-configurable variables for remote_backup.sh script
+REMOTE_SERVERS_LIST='remote1.example.com remote2.example.com'
+BKP_MAIN_PATH='/mnt/backup/hosts'
+BKP_REL_PATH='rsync_host_bkp'
+
+# Extra optional
+VAR_LOG_TREE_ONLY=true
+VAR_LOG_PATH="/var/log"
+PRE_EXEC_SCRIPT=''
+POST_EXEC_SCRIPT=''
+
+# Setting this variable, will email in case of failure of multiple attempts
+# [no variable set = no email]
+# you can use SEND_ERROR_MAIL_TO=root to email locally and let the mail transport to handle it
+# or set a proper email address (e.g. SEND_ERROR_MAIL_TO="me@mail.net") if your box can run
+# echo "message to send" | mail -s "subject" me@mail.net
+#SEND_ERROR_MAIL_TO=root

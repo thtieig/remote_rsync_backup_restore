@@ -28,61 +28,24 @@
 
 ###############################################################################
 
-# >>>> SET VARIABLES BELOW <<<< #
+# Load config variables from config.sh
+source remote_backup_config.sh
 
-REMOTE_SERVERS_LIST='remote1.example.com remote2.example.com'
-
-# Where to store the backup?
-# BKP_MAIN_PATH/<server_name>/BKP_REL_PATH
-BKP_MAIN_PATH='/mnt/backup/hosts'
-BKP_REL_PATH='rsync_host_bkp'
-
-# Custom rsync exclude file. If exists, it will be used. If not, it will use 
-# the info found in EXCLUDE_LIST variable
-EXCLUDE_LIST_FILE="backup-exclude.list"
-
-# General Exclude List; The exclude list is space separated (multiple lines allowed)
-# List ignored if EXCLUDE_LIST_FILE is present (even if empty!)
-EXCLUDE_LIST='/dev /proc /sys /tmp /run /mnt /media /lost+found
-/root/.cache/* /home/*/.cache/*
-/core* /swap* /var/swap* /swapfile'
-
-EXCLUDE_LIST='
-/dev/*** /proc/*** /sys/*** /tmp/*** /run/*** /mnt/*** /media/*** /lost+found 
+# Required fallback, in case EXCLUDE_LIST_FILE is not present
+EXCLUDE_LIST='/dev/*** /proc/*** /sys/*** /tmp/*** /run/*** /mnt/*** /media/*** /lost+found/*** 
 /root/.cache/*** 
 /home/*/.cache/*** 
 /core* 
-/swap* /var/swap* /swapfile
-'
+/swap* /var/swap*'
 
-# If you want to backup only the folders tree sync of /var/log without the actual logs
-# keep VAR_LOG_TREE_ONLY=true - otherwise, set to 'false' to backup all (unless excluded)
-# Default: true (bool)
-VAR_LOG_TREE_ONLY=true
+# Name of the exclusion file
+EXCLUDE_LIST_FILE="backup-exclude.list"
 
-# Default /var/log path: modify only in case your servers use a different one
-VAR_LOG_PATH="/var/log"
-
-# Execute custom script before or after the sync
-# Script runs on and from the backup server, not on the remote
-# Add full path of the script in here (or leave empty)
-PRE_EXEC_SCRIPT=''
-POST_EXEC_SCRIPT=''
-
-# Choose the rsync flags you prefer
-# Default: aHEAXSzx --delete -v
+# Rsync flags
 RSYNC_FLAGS='aHEAXSzx --delete -v'
-#RSYNC_FLAGS='aHEAXSzx --delete --delete-excluded -v'
-#RSYNC_FLAGS='aHEAXSzx'
-#RSYNC_FLAGS='av --delete'
-#RSYNC_FLAGS='aHEAXSzx --progress'
 
-# Maximum number of retries before giving up
-MAX_RETRIES=5
-
-###############################################################################
-
-# NO NEED TO TOUCH BELOW HERE #
+# Number of times that the script retries the backup before giving up
+MAX_RETRIES=3
 
 generate_exclude_list() {
   # Set temporary file
@@ -133,7 +96,9 @@ run_rsync_command() {
 
   if [ $retry_count -ge $MAX_RETRIES ]; then
     echo "ERROR: Hit maximum number of retries, giving up."
-    echo "$0 script wasn't unable to complete. Please manually check" | mail -s "$0 ERROR" root
+    if [ -n "$SEND_ERROR_MAIL_TO" ]; then
+      echo "$0 script wasn't able to complete. Please manually check" | mail -s "$0 ERROR" "$SEND_ERROR_MAIL_TO"
+    fi
     exit 1
   fi
 }

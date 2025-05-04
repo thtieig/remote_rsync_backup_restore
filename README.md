@@ -3,7 +3,34 @@
 This repository provides two simple yet powerful Bash scripts for handling remote Linux server backups and restorations using `rsync` over SSH.  
 There are two folders:
 - `backup`: where you can find all the backup scripts/configs
-- `restore`: where you can find, of course, the scripts/configs related to the restore
+- `restore`: where you can find, of course, the scripts/configs related to the restore  
+
+Both scripts rely on `rsync` and its own way to manage **exclusions**. If you're not familiar on how rsync does that, here a little summary:  
+
+There are difference between `*`, `**`, and `***` in rsync. Here the explanation:
+
+- `*` — matches anything except a slash (`/`) in a single directory level.
+- `**` — matches any number of directory levels, including `/`.
+- `***` — a special rsync pattern: like `**`, but also follows symlinked directories.
+
+You can find more information about **RSYNC EXCLUSIONS** in [here](rsync_exclusions.md)
+
+These scripts are also using some *rsync flags* to perform the backup/restore. Here some clarifications:  
+
+```
+# Rsync options used:
+   -a    archive mode: recurse and preserve symlinks, permissions, timestamps, group, owner
+   -H    preserve hard links
+   -E    preserves extended attributes (e.g., ACLs, SELinux attributes)
+   -A    preserve ACLs (Access Control Lists)
+   -X    preserves extended attributes (similar to E, but can be used in conjunction with E for compatibility with different systems)
+   -S    handle sparse files efficiently
+   -z    compress file data during the transfer
+   -x    stay on one filesystem only
+   --delete    ensures that files that no longer exist on the source are deleted from the destination
+```
+
+Also, I have hard coded `-v` to increase verbosity and the `--exclude-from` to pass the exclude files.  
 
 ---
 
@@ -14,25 +41,19 @@ This script is designed to back up a remote Linux server to a local directory us
 ### Features
 
 - Preserves file attributes (`-aHAXSzx`)
-- Supports incremental backups using `--link-dest`
 - Excludes runtime and volatile system directories (e.g. `/proc`, `/sys`, `/run`, etc.)
 - Compresses during transfer (`-z`)
-- Customisable exclude list
+- Customisable exclude list `backup-exclude.list` (if present)
 - Allows Pre and Post scripts to run before or after the rsync (if needed)
-- Can use a custom external `backup-exclude.list` file as rsync exclusion paths, if present
-
-#### Notes about RSYNC Exclusions
-
-There are difference between `*`, `**`, and `***` in rsync. Here the explanation:
-
-- `*` — matches anything except a slash (`/`) in a single directory level.
-- `**` — matches any number of directory levels, including `/`.
-- `***` — a special rsync pattern: like `**`, but also follows symlinked directories.
+- External `remote_backup_config.sh` config file - no changes on the main `remote_backup.sh` script are needed
+- Can email in case of failure after multiple attempts of performin a backup
 
 
 ### Usage
 
-Edit the script and set/review (at least) the following variables:
+1. Create a copy of `remote_backup_config.sh.example` and rename to `remote_backup_config.sh` in the same path of the script `remote_backup.sh`.  
+Edit `remote_backup_config.sh` setting/reviewing (at least) the following variables:
+
 ```bash
 REMOTE_SERVERS_LIST='remote1.example.com remote2.example.com'
 BKP_MAIN_PATH='/mnt/backup/hosts'
@@ -40,7 +61,7 @@ BKP_REL_PATH='rsync_host_bkp'
 ```
 There are other variables that can be set (e.g. `VAR_LOG_TREE_ONLY` or `RSYNC_FLAGS`), but it's all documented within the script.  
 
-*OPTIONAL*: update/delete the file `backup-exclude.list`. This file override the `EXCLUDE_LIST` variable within the script, if present.  
+2. OPTIONAL: update/delete the file `backup-exclude.list`. This file, if present, overrides the `EXCLUDE_LIST` variable within the main script.
 
 Once all set, you can run the script, without any flag or options:
 
