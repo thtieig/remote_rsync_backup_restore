@@ -47,6 +47,14 @@ EXCLUDE_LIST='/dev /proc /sys /tmp /run /mnt /media /lost+found
 /root/.cache/* /home/*/.cache/*
 /core* /swap* /var/swap* /swapfile'
 
+EXCLUDE_LIST='
+/dev/*** /proc/*** /sys/*** /tmp/*** /run/*** /mnt/*** /media/*** /lost+found 
+/root/.cache/*** 
+/home/*/.cache/*** 
+/core* 
+/swap* /var/swap* /swapfile
+'
+
 # If you want to backup only the folders tree sync of /var/log without the actual logs
 # keep VAR_LOG_TREE_ONLY=true - otherwise, set to 'false' to backup all (unless excluded)
 # Default: true (bool)
@@ -83,7 +91,7 @@ generate_exclude_list() {
   # Check if EXCLUDE_LIST_FILE exists
   if [ -f "${EXCLUDE_LIST_FILE}" ]; then
     # Use EXCLUDE_LIST_FILE as the exclude file
-    cp "${EXCLUDE_LIST_FILE}" "${EXCLUDE_FILE}"
+    grep -vE "^#|^$" "${EXCLUDE_LIST_FILE}" > "${EXCLUDE_FILE}"
   else
     # Generate exclude file from EXCLUDE_LIST variable
     echo "${EXCLUDE_LIST}" | tr " " "\n" | sed '/^\s*$/d' | sort > "${EXCLUDE_FILE}"

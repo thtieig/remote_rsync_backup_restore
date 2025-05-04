@@ -6,7 +6,7 @@ This repository provides two simple yet powerful Bash scripts for handling remot
 
 ## 🔄 `remote_backup.sh`
 
-This script is designed to back up a remote Linux server to a local directory using `rsync`.
+This script is designed to back up a remote Linux server to a local directory using `rsync`.  
 
 ### Features
 
@@ -17,6 +17,15 @@ This script is designed to back up a remote Linux server to a local directory us
 - Customisable exclude list
 - Allows Pre and Post scripts to run before or after the rsync (if needed)
 - Can use a custom external `backup-exclude.list` file as rsync exclusion paths, if present
+
+#### Notes about RSYNC Exclusions
+
+There are difference between `*`, `**`, and `***` in rsync. Here the explanation:
+
+- `*` — matches anything except a slash (`/`) in a single directory level.
+- `**` — matches any number of directory levels, including `/`.
+- `***` — a special rsync pattern: like `**`, but also follows symlinked directories.
+
 
 ### Usage
 
@@ -30,7 +39,7 @@ You can optionally specify a `--link-dest` for incremental hard-link based backu
 
 ## ♻️ `restore_backup.sh`
 
-This script restores a backup from a local directory to a target VPS over SSH, **while carefully excluding system-specific paths** that should not be overwritten.
+This script restores a backup from a local directory to a target destination server over SSH, **while carefully excluding system-specific paths** that should not be overwritten.
 
 ### Features
 
@@ -39,12 +48,13 @@ This script restores a backup from a local directory to a target VPS over SSH, *
 - Verbose output with `-v`
 - Built-in sanity check for typical backup structure (`etc`, `usr`, `bin`, `var`)
 - Prompts before proceeding with destructive sync
-- Automatically reboots the target VPS on successful restore
+- Automatically reboots the target destination server on successful restore
+- Can use a custom external `restore-exclude.list` file as rsync exclusion paths, if present
 
 ### Usage
 
 ```bash
-./restore_backup.sh [--dry-run] /full/path/to/backup-source VPS_IP
+./restore_backup.sh [--dry-run] /full/path/to/backup-source DESTINATION_SERVER_IP
 ```
 
 Example:
@@ -53,7 +63,7 @@ Example:
 ./restore_backup.sh --dry-run /mnt/backup 192.168.1.100
 ```
 
-> 🛑 Be cautious: this script will delete files on the VPS that aren't in the backup, except those explicitly excluded.
+> 🛑 Be cautious: this script will delete files on the destination server that aren't in the backup, except those explicitly excluded.
 
 ---
 

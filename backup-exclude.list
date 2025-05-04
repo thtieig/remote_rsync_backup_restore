@@ -1,20 +1,25 @@
+# Generic exclusions
 /core*
-/dev/*
-/etc/Acronis
-/home/*/.cache/*
+/dev/***
 /lock
 /lost+found
-/media/*
-/mnt/*
-/proc/*
-/root/.cache/*
-/root/Acronis
-/root/agent*
-/root/snap
-/run/*
-/space/*
+/media/***
+/mnt/***
+/proc/***
+/root/snap/***
+/run/***
+/space/***
 /swap*
 /swapfile
-/sys/*
-/tmp/*
+/sys/***
+/tmp/***
+
+# Acronis backup
+/etc/Acronis
+/root/Acronis
 /usr/lib/Acronis
+/root/agent*
+
+# Cache folders
+/home/*/.cache/***
+/root/.cache/***
