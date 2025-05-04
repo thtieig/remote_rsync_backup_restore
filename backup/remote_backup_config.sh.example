@@ -18,3 +18,6 @@ POST_EXEC_SCRIPT=''
 
 # Rsync Flags - DO NOT change unless you know what are you doing
 RSYNC_FLAGS='aHEAXSzx --delete --delete-excluded -v'
+
+# Use the below if you want to try without applying any changes
+#RSYNC_FLAGS='aHEAXSzx --delete --delete-excluded -v --dry-run'

@@ -9,18 +9,23 @@
 /mnt/***
 /proc/***
 /root/snap/***
+/var/run/***
+/var/tmp/***
+/var/swap*
 /run/***
-/space/***
 /swap*
 /sys/***
 /tmp/***
 
-# Acronis backup
-/etc/Acronis/***
-/root/Acronis/***
-/usr/lib/Acronis/***
-/root/agent*
+# Generic packages in cache
+/var/cache/man/**
+/var/cache/dictionaries-common/**
+/var/cache/apt/archives/***
 
-# Cache folders
+# Docker or container runtime cache and overlay
+/var/lib/docker/***
+/var/lib/containers/***
+
+# Home cache folders
 /home/*/.cache/***
 /root/.cache/***
