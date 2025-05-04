@@ -1,6 +1,9 @@
 # Remote Rsync Backup and Restore Scripts
 
-This repository provides two simple yet powerful Bash scripts for handling remote Linux server backups and restorations using `rsync` over SSH.
+This repository provides two simple yet powerful Bash scripts for handling remote Linux server backups and restorations using `rsync` over SSH.  
+There are two folders:
+- `backup`: where you can find all the backup scripts/configs
+- `restore`: where you can find, of course, the scripts/configs related to the restore
 
 ---
 
