@@ -23,3 +23,6 @@
 
 # run every day at 2:30 AM and log using 'logger' into syslog
 #30 2 * * * root /full/path/remote_backup.sh 2>&1 | /usr/bin/logger -t remote_backup_tian_sites
+
+# run every day at 2:30 AM and log to file AND log using 'logger' into syslog
+#30 2 * * * root /full/path/remote_backup.sh 2>&1 | tee -a /var/log/remote_backup.log | /usr/bin/logger -t remote_backup_tian_sites

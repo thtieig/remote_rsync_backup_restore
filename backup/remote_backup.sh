@@ -10,7 +10,7 @@
 # - License      : GPLv3
 # - author       : Chris Tian
 # - date         : 2025-05-05
-# - version      : 3.2.1
+# - version      : 3.2.2
 # - usage        : bash remote_backup.sh
 # - OS Supported : Ubuntu, Debian, SUSE, Gentoo, RHEL, CentOS, Scientific, Arch
 # - Credits      : Ispired by https://github.com/cloudnull/InstanceSync
@@ -28,8 +28,11 @@
 
 ###############################################################################
 
+# Get the directory where this script is located
+SCRIPT_DIR=$(dirname "$0")
+
 # Load config variables from config.sh
-source remote_backup_config.sh
+source "$SCRIPT_DIR/remote_backup_config.sh"
 
 # Required fallback, in case EXCLUDE_LIST_FILE is not present
 EXCLUDE_LIST='/dev/*** /proc/*** /sys/*** /tmp/*** /run/*** /mnt/*** /media/*** /lost+found/*** 
@@ -124,6 +127,8 @@ for server in $REMOTE_SERVERS_LIST; do
   echo -e "\n****************************************************************************"
   echo ">>>> Running backup of $REMOTE_SERVER <<<<"
   echo -e "\nFYI ;-) \n\tREMOTE_SERVER=$REMOTE_SERVER \n\tBACKUP_LOC_PATH=$BACKUP_LOC_PATH \n\tRSYNC_FLAGS=$RSYNC_FLAGS\n\n"
+  echo -e "Starting in 5 seconds...\n"
+  sleep 5
   run_rsync_command "$REMOTE_SERVER" "$BACKUP_LOC_PATH"
 done
 
