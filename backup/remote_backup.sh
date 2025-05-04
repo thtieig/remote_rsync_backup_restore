@@ -10,7 +10,7 @@
 # - License      : GPLv3
 # - author       : Chris Tian
 # - date         : 2025-05-05
-# - version      : 3.2
+# - version      : 3.2.1
 # - usage        : bash remote_backup.sh
 # - OS Supported : Ubuntu, Debian, SUSE, Gentoo, RHEL, CentOS, Scientific, Arch
 # - Credits      : Ispired by https://github.com/cloudnull/InstanceSync
@@ -121,9 +121,9 @@ execute_pre_script
 for server in $REMOTE_SERVERS_LIST; do
   REMOTE_SERVER=$server
   BACKUP_LOC_PATH="${BKP_MAIN_PATH}/${REMOTE_SERVER}/${BKP_REL_PATH}"
-  echo "\n####################################################################################################"
+  echo -e "\n****************************************************************************"
   echo ">>>> Running backup of $REMOTE_SERVER <<<<"
-  echo "DEBUG: REMOTE_SERVER=$REMOTE_SERVER and BACKUP_LOC_PATH=$BACKUP_LOC_PATH"
+  echo -e "\nFYI ;-) \n\tREMOTE_SERVER=$REMOTE_SERVER \n\tBACKUP_LOC_PATH=$BACKUP_LOC_PATH \n\tRSYNC_FLAGS=$RSYNC_FLAGS\n\n"
   run_rsync_command "$REMOTE_SERVER" "$BACKUP_LOC_PATH"
 done
 

@@ -71,7 +71,7 @@ This script is designed to back up a remote Linux server to a local directory us
 
     🛑 The `RSYNC_FLAG` variable is now configurable and no longer hardcoded into the main script. This change allows for customisation of the sync process, should you wish to adopt a more cautious approach.  
     In addition to the `--delete` flag, I also utilise the `--delete-excluded` flag to remove excluded files from the backup. The reason for this is to maintain a consistent and up-to-date copy of the source directory. By using `--delete-excluded`, any files or paths that have been *newly added to the exclusion list* are also removed from the backup, ensuring that the backup remains accurately reflective of the source.  
-    If you want to be more cautious, you can tweak this by removing `--delete-excluded`, `--delete`, or both, depending on your specific requirements and desired level of protection for your backup data. 
+    If you want to be more cautious, you can tweak this by removing `--delete-excluded`, `--delete`, or both, depending on your specific requirements and desired level of protection for your backup data. Or, even better, use the `--dry-run` option! ;-)  
 
 
 2. OPTIONAL: update/delete the file `backup-exclude.list`. This file, if present, overrides the `EXCLUDE_LIST` variable within the main script.
