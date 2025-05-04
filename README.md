@@ -48,6 +48,7 @@ This script is designed to back up a remote Linux server to a local directory us
 - Allows Pre and Post scripts to run before or after the rsync (if needed)
 - External `remote_backup_config.sh` config file - no changes on the main `remote_backup.sh` script are needed
 - Can email in case of failure after multiple attempts of performin a backup
+- Possibility to customise the rsync flag 
 
 
 ### Usage
@@ -60,7 +61,9 @@ This script is designed to back up a remote Linux server to a local directory us
     BKP_MAIN_PATH='/mnt/backup/hosts'
     BKP_REL_PATH='rsync_host_bkp'
     ```
-    There are other variables that can be set (e.g. `VAR_LOG_TREE_ONLY` or `RSYNC_FLAGS`), but it's all documented within the script.  
+    There are other variables that can be set but it's all documented within the file.  
+    🛑 The `RSYNC_FLAG` variable should be changed only if you know what you're doing. 
+    REMEMBER: The `--delete-excluded` flag will remove excluded files from destination if not present at the source, but there are some caveats. 
 
 2. OPTIONAL: update/delete the file `backup-exclude.list`. This file, if present, overrides the `EXCLUDE_LIST` variable within the main script.
 

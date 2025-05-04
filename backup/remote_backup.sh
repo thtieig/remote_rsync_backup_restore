@@ -41,9 +41,6 @@ EXCLUDE_LIST='/dev/*** /proc/*** /sys/*** /tmp/*** /run/*** /mnt/*** /media/*** 
 # Name of the exclusion file
 EXCLUDE_LIST_FILE="backup-exclude.list"
 
-# Rsync flags
-RSYNC_FLAGS='aHEAXSzx --delete -v'
-
 # Number of times that the script retries the backup before giving up
 MAX_RETRIES=3
 

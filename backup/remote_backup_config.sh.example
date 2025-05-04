@@ -15,3 +15,12 @@ POST_EXEC_SCRIPT=''
 # or set a proper email address (e.g. SEND_ERROR_MAIL_TO="me@mail.net") if your box can run
 # echo "message to send" | mail -s "subject" me@mail.net
 #SEND_ERROR_MAIL_TO=root
+
+
+# Rsync Flags
+
+# Default - do not change unless you know what are you doing
+RSYNC_FLAGS='aHEAXSzx --delete -v'
+
+#(use the blelow at your own risk)
+#RSYNC_FLAGS='aHEAXSzx --delete --delete-excluded -v'
