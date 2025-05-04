@@ -31,9 +31,12 @@
 #   --delete    delete extraneous files from destination dirs
 #   --exclude   do not copy or delete the specified patterns
 
+# Get the directory where this script is located
+SCRIPT_DIR=$(dirname "$0")
+
 # Custom rsync exclude file. If exists, it will be used. If not, it will use 
 # the info found in EXCLUDE_LIST variable
-EXCLUDE_LIST_FILE="restore-exclude.list"
+EXCLUDE_LIST_FILE="$SCRIPT_DIR/restore-exclude.list"
 
 # General Exclude List; The exclude list is space separated (multiple lines allowed)
 # List ignored if EXCLUDE_LIST_FILE is present (even if empty!)
