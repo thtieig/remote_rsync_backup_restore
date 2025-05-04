@@ -48,5 +48,7 @@ Thumbs.db
 *.mov
 *.wmv
 
-# Extras
+# Custom/config files
 remote_backup_config.sh
+backup-exclude.list
+restore-exclude.list

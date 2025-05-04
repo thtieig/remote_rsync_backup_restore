@@ -1,3 +1,5 @@
+# restore-exclude.list template file (create a copy called restore-exclude.list)
+
 # never touch the destination server's own boot, modules, initramfs
 /boot/***
 /lib/modules/***
