@@ -1,0 +1,23 @@
+# never touch the destination server's own boot, modules, initramfs
+/boot/***
+/lib/modules/***
+/usr/lib/modules/***
+/etc/initramfs-tools/***
+
+# keep the destination server fstab & grub
+/etc/fstab
+/etc/default/grub
+
+# machine-specific IDs & SSH host keys
+/etc/machine-id
+/etc/ssh/ssh_host_*
+
+# ignore all runtime and virtual filesystems
+/dev/***
+/proc/***
+/sys/***
+/run/***
+/tmp/***
+/mnt/***
+/media/***
+/lost+found/***

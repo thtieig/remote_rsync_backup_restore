@@ -1,0 +1,25 @@
+# Remote backup - Cron.d config file
+# -------------------------------------------------------------------#
+# Help
+# ====
+
+# ┌────────── minute (0 - 59)
+# │ ┌──────── hour (0 - 23)
+# │ │ ┌────── day of month (1 - 31)
+# │ │ │ ┌──── month (1 - 12)
+# │ │ │ │ ┌── day of week (0 - 6 => Sunday - Saturday, or
+# │ │ │ │ │                1 - 7 => Monday - Sunday)
+# ↓ ↓ ↓ ↓ ↓
+# * * * * * command to be executed
+
+# -------------------------------------------------------------------#
+
+# 1) Save this file into /etc/cron.d/ folder
+# 2) Set the right paths of the script in the below lines
+# 3) Uncomment the right line based if you have or not 'logger' installed
+
+# run every day at 2:30 AM and log to file
+#30 2 * * * root /full/path/remote_backup.sh 2>&1 > /var/log/remote_backup.log
+
+# run every day at 2:30 AM and log using 'logger' into syslog
+#30 2 * * * root /full/path/remote_backup.sh 2>&1 | /usr/bin/logger -t remote_backup_tian_sites

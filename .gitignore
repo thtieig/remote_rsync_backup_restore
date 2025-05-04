@@ -48,3 +48,5 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Extras
+remote_backup_config.sh
