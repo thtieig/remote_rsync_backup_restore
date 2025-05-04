@@ -138,6 +138,22 @@ Below some of the mistakes I made, and I had some help to have it fixed:
 /lock               ✅ if there's a /lock file or directory in the root
 ```
 
+Let's also use another example, where I want to exclude the folder 'Acronis' in full:
+
+```
+/etc/Acronis/	    May still create empty dir
+
+/etc/Acronis/*	    Excludes direct contents only
+
+/etc/Acronis/**	    Excludes all contents recursively: ⮜ Use THIS
+
+/etc/Acronis/***	✅ Excludes dir and all contents, including symlinks
+
+/etc/Acronis***	    ❌ Invalid, matches e.g. /etc/Acronis_backup, not a directory
+
+```
+In this example, again, I need to use the `***` to be sure to exclude in full the `/etc/Acronis` folder from the sync.
+
 
 ### Conclusion
 

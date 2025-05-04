@@ -14,9 +14,9 @@
 /tmp/***
 
 # Acronis backup
-/etc/Acronis
-/root/Acronis
-/usr/lib/Acronis
+/etc/Acronis/***
+/root/Acronis/***
+/usr/lib/Acronis/***
 /root/agent*
 
 # Cache folders
