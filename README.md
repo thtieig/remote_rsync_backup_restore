@@ -15,6 +15,7 @@ This script is designed to back up a remote Linux server to a local directory us
 - Excludes runtime and volatile system directories (e.g. `/proc`, `/sys`, `/run`, etc.)
 - Compresses during transfer (`-z`)
 - Customisable exclude list
+- Allows Pre and Post scripts to run before or after the rsync (if needed)
 
 ### Usage
 
