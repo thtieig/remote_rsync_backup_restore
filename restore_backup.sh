@@ -1,6 +1,18 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+# =============================================================================
+# - title        : Full restore linux server to new destiation 
+# - description  : Bash script that rsync's the content of a local folder (backup)
+#                  to a new destination server, using rsync.
+# - License      : GPLv3
+# - author       : Chris Tian
+# - date         : 2025-05-05
+# - version      : 1.2
+# - usage        : bash restore_backup.sh
+# - OS Supported : Ubuntu, Debian
+# =============================================================================
 #
-# restore_backup.sh — mirror backup to VPS, excluding paths that must stay VPS-native
+# restore_backup.sh — mirror backup to destination server, excluding paths that must stay "untouched"
 #
 # Usage: ./restore_backup.sh [--dry-run] /full/path/to/backup-source DESTINATION_SERVER_IP
 #

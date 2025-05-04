@@ -10,7 +10,7 @@
 # - License      : GPLv3
 # - author       : Chris Tian
 # - date         : 2025-05-05
-# - version      : 3.1
+# - version      : 3.2
 # - usage        : bash remote_backup.sh
 # - OS Supported : Ubuntu, Debian, SUSE, Gentoo, RHEL, CentOS, Scientific, Arch
 # - Credits      : Ispired by https://github.com/cloudnull/InstanceSync
@@ -34,7 +34,7 @@ REMOTE_SERVERS_LIST='remote1.example.com remote2.example.com'
 
 # Where to store the backup?
 # BKP_MAIN_PATH/<server_name>/BKP_REL_PATH
-BKP_MAIN_PATH='/space/backups/hosts'
+BKP_MAIN_PATH='/mnt/backup/hosts'
 BKP_REL_PATH='rsync_host_bkp'
 
 # Custom rsync exclude file. If exists, it will be used. If not, it will use 
